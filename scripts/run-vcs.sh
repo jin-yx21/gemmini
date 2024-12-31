@@ -2,7 +2,7 @@
 
 ROOT="$PWD/"
 
-WAVEFORM="waveforms/waveform.vpd"
+WAVEFORM="waveforms/waveform.fsdb"
 
 help () {
   echo "Run a RISCV Gemmini program on VCS, a cycle-accurate simulator"
@@ -65,7 +65,7 @@ else
 fi
 
 if [ $debug -eq 1 ]; then
-    DEBUG="-debug +permissive +ntb_random_seed_automatic +vcdplusfile=${ROOT}${WAVEFORM} +permissive-off"
+    DEBUG="-debug +permissive +ntb_random_seed_automatic +fsdbfile=${ROOT}${WAVEFORM} +permissive-off"
 else
     DEBUG=""
 fi
@@ -88,5 +88,5 @@ if [ ! -f "${full_binary_path}" ]; then
 fi
 
 cd ../../sims/vcs/
-./simv-chipyard-CustomGemminiSoCConfig${DEBUG} $PK $full_binary_path
+./simv-chipyard.harness-CustomGemminiSoCConfig${DEBUG} $PK $full_binary_path
 
